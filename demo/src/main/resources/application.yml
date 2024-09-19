@@ -1,0 +1,13 @@
+server:
+  port: 8082  # Port for the user-service
+
+spring:
+  application:
+    name: workout-generator  # Name of the service
+
+  cloud:
+    consul:
+      discovery:
+        service-name: workout-generator
+        health-check-path: /actuator/health
+        health-check-interval: 10s
