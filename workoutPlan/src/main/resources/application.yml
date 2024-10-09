@@ -8,6 +8,6 @@ spring:
   cloud:
     consul:
       discovery:
-        service-name: gateway
+        service-name: workout-plan
         health-check-path: /actuator/health
         health-check-interval: 10s

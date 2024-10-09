@@ -15,11 +15,9 @@ public class PlannerController {
     @GetMapping("/plan")
     public JSONArray getWorkout(){
 
-        return plannerService.callOtherService(5);
-    }
-    @GetMapping("/actuator/healthcheck")
-    public String healthCheck(){
-        return "200";
+
+        return plannerService.GenerateQueue();
+
     }
 
 

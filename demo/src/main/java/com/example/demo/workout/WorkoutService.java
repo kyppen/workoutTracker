@@ -11,6 +11,8 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 
+
+
 @Service
 public class WorkoutService {
 
@@ -23,10 +25,12 @@ public class WorkoutService {
             List<Exercise> exercises = objectMapper.readValue(jsonFile, new TypeReference<List<Exercise>>() {});
             Random random = new Random();
 
-            for(int i = 0; i < 7; i++){
-                int index = random.nextInt(872 +1);
+            for(int i = 0; i < 1; i++){
+                int index = random.nextInt(872 + 1);
                 jsonArray.add(exercises.get(index));
             }
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
