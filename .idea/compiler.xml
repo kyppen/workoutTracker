@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gateway" />
-        <module name="workoutGenerator" />
         <module name="workoutPlan" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="workoutGenerator" target="22" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
