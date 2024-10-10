@@ -3,12 +3,12 @@ import Greeting from './Greeting'
 
 
 
-function DataFetchingComponent(){
+function FetchGymPlanComponent(){
   const [data, setData] = useState(null)
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8082/workout');
+      const response = await fetch('http://localhost:8083/randomPlan');
       const result = await response.json();
       setData(result); // Store fetched data in state
       console.log(result)
@@ -20,13 +20,12 @@ function DataFetchingComponent(){
   return (
       <div>
         {/* Step 3: Button to trigger data fetch */}
-        <button onClick={fetchData}>Fetch Data</button>
+        <button onClick={fetchData}>/randomPlan</button>
 
         {/* Step 4: Display fetched data */}
         {data && (
             <div>
-              <h2>{data.Object}</h2>
-              <p>{data.body}</p>
+              <h2>{data}</h2>
             </div>
         )}
       </div>
@@ -40,7 +39,7 @@ function App() {
         <h1>My React App</h1>
           <Greeting greeting={"XD"}/>
         {/* Step 2: Use the DataFetchingComponent */}
-        <DataFetchingComponent />
+        <FetchGymPlanComponent />
       </div>
   );
 }

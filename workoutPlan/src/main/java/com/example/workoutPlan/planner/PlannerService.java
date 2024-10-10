@@ -1,12 +1,14 @@
 package com.example.workoutPlan.planner;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.json.simple.JSONArray;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PlannerService {
@@ -17,28 +19,32 @@ public class PlannerService {
         this.restTemplate = restTemplate;
     }
 
-    public JSONArray GenerateQueue(){
-        final String QUEUE_NAME = "workoutgen";
 
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+    public List<exercise> getWorkoutData(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println("getWorkoutData()");
+        String url = "http://localhost:8082/workout";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        String jsonString = response.getBody();
+        try{
+            List<exercise> foo = objectMapper.readValue(jsonString, new TypeReference<List<exercise>>(){});
+            foo.forEach(System.out::println);
+            return foo;
 
-        try (Connection connection = factory.newConnection();
-             Channel channel = connection.createChannel()) {
-
-            // 2. Declare a queue
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = "Hello, I would like a JSon File containing a workout regiment";
-
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-            System.out.println(" [x] Sent '" + message + "'");
-        }
-        catch (Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
-        return new JSONArray();
-    }
 
+        return null;
+    }
+    public WorkoutPlan createPlan(String workoutName){
+        WorkoutPlan workoutPlan = new WorkoutPlan();
+        workoutPlan.setWorkoutName(workoutName);
+        workoutPlan.setWorkoutPlanId("1");
+        workoutPlan.setExercises(getWorkoutData());
+
+        return workoutPlan;
+    }
     public JSONArray callOtherService(int amount) {
         String url = "http://localhost:8082/workout";
 
@@ -52,6 +58,4 @@ public class PlannerService {
 
         return plan;
     }
-
-
 }
