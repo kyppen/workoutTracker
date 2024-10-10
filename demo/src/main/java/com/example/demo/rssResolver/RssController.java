@@ -1,4 +1,4 @@
-package com.example.workoutGenerator.rssResolver;
+package com.example.demo.rssResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rometools.rome.feed.synd.SyndEntry;
