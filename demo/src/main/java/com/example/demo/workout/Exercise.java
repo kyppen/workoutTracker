@@ -3,22 +3,32 @@ package com.example.demo.workout;
 import java.util.List;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Exercise {
     private String id;
+    @JsonProperty("name")
     private String name;
-    private Force force; // Nullable
+    @JsonProperty("force")
+    private Force force;// Nullable
+    @JsonProperty("level")
     private Level level;
     private Mechanic mechanic; // Nullable
-    private Equipment equipment; // Nullable
+    @JsonProperty("equipment")
+    private Equipment equipment;// Nullable
     private List<Muscle> primaryMuscles;
     private List<Muscle> secondaryMuscles;
+    @JsonProperty("instructions")
     private List<String> instructions;
+    @JsonProperty("category")
     private Category category;
+    @JsonProperty("images")
     private List<String> images;
 
     // Constructors

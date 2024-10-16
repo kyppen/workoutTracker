@@ -2,9 +2,7 @@ package com.example.workoutPlan.planner;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONArray;
 
 
@@ -18,7 +16,13 @@ public class PlannerController {
     @GetMapping("/randomPlan")
     public WorkoutPlan getWorkout(){
         return plannerService.createPlan("placeholder");
+    }
 
+    @PostMapping("/generatePlan")
+    public WorkoutPlan generatePlan(@RequestBody WorkoutPlan workoutPlan){
+        plannerService.generatePlan(workoutPlan);
+        System.out.println("Post mapping done");
+        return workoutPlan;
     }
 
 

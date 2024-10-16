@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class WorkoutController {
     @Autowired
     private WorkoutService workoutService;
@@ -19,7 +20,8 @@ public class WorkoutController {
     }
     @GetMapping("/workout/{id}")
     public Exercise getWorkoutById(@PathVariable int id){
-        return workoutService.generateWorkoutbyId(id);
+        System.out.println("Controller activates");
+        return workoutService.getWorkoutById(id);
     }
 
 

@@ -2,6 +2,8 @@ package com.example.workoutPlan.planner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.jdbc.Work;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,13 +12,17 @@ import org.json.simple.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class PlannerService {
 
     private final RestTemplate restTemplate;
+    private final RestTemplateConfig restTemplateConfig;
 
-    public PlannerService(RestTemplate restTemplate) {
+
+    public PlannerService(RestTemplate restTemplate, RestTemplateConfig restTemplateConfig) {
         this.restTemplate = restTemplate;
+        this.restTemplateConfig = restTemplateConfig;
     }
 
 
@@ -26,6 +32,7 @@ public class PlannerService {
         String url = "http://localhost:8082/workout";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         String jsonString = response.getBody();
+        System.out.println(jsonString);
         try{
             List<exercise> foo = objectMapper.readValue(jsonString, new TypeReference<List<exercise>>(){});
             foo.forEach(System.out::println);
@@ -34,28 +41,22 @@ public class PlannerService {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
-    public WorkoutPlan createPlan(String workoutName){
+
+    public WorkoutPlan createPlan(String placeholdername){
+        //WorkoutPlan workoutPlan = new WorkoutPlan("1", "name", getWorkoutData());
         WorkoutPlan workoutPlan = new WorkoutPlan();
-        workoutPlan.setWorkoutName(workoutName);
-        workoutPlan.setWorkoutPlanId("1");
+        workoutPlan.setWorkoutName("Placeholder");
+        workoutPlan.setWorkoutPlanId("2");
         workoutPlan.setExercises(getWorkoutData());
+        return workoutPlan;
+    }
+
+    public WorkoutPlan generatePlan(WorkoutPlan workoutPlan){
+        System.out.println("plannerservice");
 
         return workoutPlan;
     }
-    public JSONArray callOtherService(int amount) {
-        String url = "http://localhost:8082/workout";
 
-        JSONArray plan = new JSONArray();
-        for(int i = 0; i < amount; i++) {
-            JSONArray jsonArray = restTemplate.getForObject(url, JSONArray.class);
-            //TODO add names to json files
-            jsonArray.add(0, "workout: " + i);
-            plan.add(jsonArray);
-        }
-
-        return plan;
-    }
 }

@@ -44,12 +44,16 @@ public class WorkoutService {
         System.out.println(jsonArray);
         return jsonArray;
     }
-    public Exercise generateWorkoutbyId(int id) {
+
+    public Exercise getWorkoutById(int id) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File jsonFile = new File("src/main/java/exercises.json");
             //System.out.println(jsonFile.isFile());
             List<Exercise> exercises = objectMapper.readValue(jsonFile, new TypeReference<List<Exercise>>() {});
+            for(Exercise e : exercises){
+                System.out.println(e.toString());
+            }
             return exercises.get(id);
 
 
