@@ -1,0 +1,27 @@
+server:
+  port: 8085  # Port for the user-service
+
+amqp:
+  exchange:
+    name: workout-gen-queue
+management:
+  endpoints:
+    web:
+      exposure:
+        include = health
+spring:
+  application:
+    name: validator-service # Name of the service
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    consul:
+      discovery:
+        service-name: validator-service
+        health-check-path: /actuator/health
+        health-check-interval: 10s

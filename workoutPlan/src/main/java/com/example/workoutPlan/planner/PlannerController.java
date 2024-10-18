@@ -20,7 +20,8 @@ public class PlannerController {
 
     @PostMapping("/generatePlan")
     public WorkoutPlan generatePlan(@RequestBody WorkoutPlan workoutPlan){
-        plannerService.generatePlan(workoutPlan);
+        //plannerService.generatePlan(workoutPlan);
+        plannerService.createPlan("dsadsaa");
         System.out.println("Post mapping done");
         return workoutPlan;
     }

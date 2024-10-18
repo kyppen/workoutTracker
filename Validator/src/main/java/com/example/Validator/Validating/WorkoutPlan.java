@@ -1,10 +1,11 @@
-package com.example.workoutPlan.planner;
+package com.example.Validator.Validating;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -12,10 +13,18 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class WorkoutPlan {
+    @Getter
+    @Setter
     private String username;
     private String workoutName;
+    private Integer amount;
     private String category;
-    private List<exercise> exercises;
     private List<String> equipments;
+    private List<Exercise> exercises = new ArrayList<>();
 
+
+    public void addExercise(Exercise e){
+        System.out.println("add exercise");
+        exercises.add(e);
+    }
 }

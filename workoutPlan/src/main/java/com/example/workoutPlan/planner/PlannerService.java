@@ -48,13 +48,15 @@ public class PlannerService {
         //WorkoutPlan workoutPlan = new WorkoutPlan("1", "name", getWorkoutData());
         WorkoutPlan workoutPlan = new WorkoutPlan();
         workoutPlan.setWorkoutName("Placeholder");
-        workoutPlan.setWorkoutPlanId("2");
         workoutPlan.setExercises(getWorkoutData());
         return workoutPlan;
     }
 
     public WorkoutPlan generatePlan(WorkoutPlan workoutPlan){
         System.out.println("plannerservice");
+
+
+
 
         return workoutPlan;
     }
