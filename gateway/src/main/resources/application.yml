@@ -1,0 +1,31 @@
+server:
+  port: 8085  # Port for the user-service
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+spring:
+  application:
+    name: validator-service # Name of the service
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        ## instance id
+        service-name: validator-service
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        default-query-tag: http
+        prefer-ip-address: true
+        register: true
+        enabled: true

@@ -18,8 +18,8 @@ public class Generator {
         List<Exercise> adding = new ArrayList<>();
 
         try{
-            File jsonFile = new File("src/main/java/exercises.json");
-            //System.out.println(jsonFile.isFile());
+            File jsonFile = new File("workoutGenerator/src/main/java/exercises.json");
+            System.out.println(jsonFile.isFile());
             List<Exercise> exercises = objectMapper.readValue(jsonFile, new TypeReference<List<Exercise>>() {});
             Random random = new Random();
             for(int i = 0; i < workoutPlan.getAmount(); i++){

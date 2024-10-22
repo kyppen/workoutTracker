@@ -1,6 +1,8 @@
 package com.example.Validator.Validating;
 
 
+import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,15 @@ public class ValidatorController {
     @PostMapping("/validateplan")
     public WorkoutPlan validatePlan(@RequestBody WorkoutPlan workoutPlan){
         System.out.println("ValidatePlan()");
-        validatorService.sendMessage(workoutPlan.toString());
+        ObjectMapper objectMapper = new ObjectMapper();
+        validatorService.sendMessage(workoutPlan);
 
         return workoutPlan;
     }
     @GetMapping("/send")
     public String sendMessage() {
         //Setup for MQ, takes http://localhost:8085/send get request and adds it to queue
-        validatorService.sendMessage("message");
+        validatorService.sendMessage2("message");
         return "Message sent!";
     }
 }
