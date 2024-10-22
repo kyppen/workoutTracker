@@ -10,7 +10,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-
+    networks:
+      - workout_network
   consul:
     image: hashicorp/consul:1.19.2
     container_name: consul
@@ -18,3 +19,9 @@ services:
       - "8500:8500/udp"
       - "8500:8500"   # Consul HTTP API
     command: 'agent -dev -node=micro_smth -client=0.0.0.0 -log-level=INFO'
+    networks:
+      - workout_network
+
+networks:
+  workout_network:
+    driver: bridge
